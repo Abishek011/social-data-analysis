@@ -17,8 +17,10 @@ class SentimentAnalysis:
     
     def DownloadData(self):
         
-        inp = json.loads(sys.stdin.readlines()[0])
-        print(inp)
+        inp = (sys.stdin.readlines()[0]).replace("[","")
+        inp = (inp).replace("]","")
+        inp = (inp).replace("\n","")
+        inp = ("".join(inp.split("\""))).split(",")
         # authenticating
         consumerKey = inp[2]
         consumerSecret = inp[3]

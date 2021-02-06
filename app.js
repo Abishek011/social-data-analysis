@@ -27,15 +27,22 @@ require('dotenv').config()
 
 const port = process.env.PORT || 3000;
 
-app.get('/', async (req, res) => {
+app.get('/:key/:count', async (req, res) => {
 
     let runPy = new Promise(function (resolve, reject) {
         
 const { PythonShell } = require('python-shell')
-        let pyshell = new PythonShell('test.py');
+        let pyshell = new PythonShell('main.py');
 
         // sends a message to the Python script via stdin
-        pyshell.send('hello');
+        pyshell.send(JSON.stringify(
+            [  req.params.key,
+               req.params.count,
+               process.env.CONSUMER,
+               process.env.CONSUMER_SECRET,
+               process.env.ACCESS,
+               process.env.ACCESS_SECRET
+            ]));
 
         pyshell.on('message', function (message) {
             // received a message sent from the Python script (a simple "print" statement)
