@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+const port = process.env.PORT || 3000;
+
 app.get('/:key/:count', async (req, res) => {
 
     let runPy = new Promise(function (resolve, reject) {
@@ -36,4 +38,4 @@ app.get('/:key/:count', async (req, res) => {
         });
 })
 
-app.listen(4000, () => console.log('Application listening on port 4000!')) 
+app.listen(port, () => console.log('Application listening on port 4000!')) 
