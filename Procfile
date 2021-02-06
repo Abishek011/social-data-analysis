@@ -1,2 +1,1 @@
-web: python main.py
-app: npm start
+web: node app.js
