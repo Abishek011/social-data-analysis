@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+require('dotenv').config()
+
 const port = process.env.PORT || 3000;
 
 app.get('/:key/:count', async (req, res) => {
@@ -34,8 +36,8 @@ app.get('/:key/:count', async (req, res) => {
             console.log(fromRunpy.toString());
             res.end(fromRunpy);
         }).catch(err => {
-            console.log("error");
+            console.log("error",err);
         });
 })
 
-app.listen(port, () => console.log('Application listening on port 4000!')) 
+app.listen(port, () => console.log(`Application listening on port ${port}`)) 
