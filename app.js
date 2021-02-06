@@ -36,7 +36,7 @@ app.get('/:key/:count', async (req, res) => {
             console.log(fromRunpy.toString());
             res.end(fromRunpy);
         }).catch(err => {
-            console.log("error",err);
+            console.log("error",JSON.stringify(err));
         });
 })
 
