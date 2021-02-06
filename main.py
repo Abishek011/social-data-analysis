@@ -16,17 +16,18 @@ class SentimentAnalysis:
 
     
     def DownloadData(self):
+        
+        inp = json.loads(sys.stdin.readlines()[0])
         # authenticating
-        consumerKey = "4iFucqV4gdyxiQthnV5Pqhx8W"
-        consumerSecret = "K0rUOjcXMBs2Iw1b1e4SollNlHjwhF2jff1b7MwuYYZ989tZuz"
-        accessToken = "1063798359180247041-Ejdsm8YAFpubTzW7oGOImqPfiojtxa"
-        accessTokenSecret = "VXTZLfku4FTlvedeYp5YqYrVSuVZopbgpycbRufNPcWD0"
+        consumerKey = inp[2]
+        consumerSecret = inp[3]
+        accessToken = inp[4]
+        accessTokenSecret = inp[5]
         
         auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
         auth.set_access_token(accessToken, accessTokenSecret)
         api = tweepy.API(auth)
 
-        inp = json.loads(sys.stdin.readlines()[0])
         print(inp[0])
         # input for term to be searched and how many tweets to search
         searchTerm =inp[0]# input("Enter Keyword/Tag to search about: ")

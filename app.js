@@ -16,7 +16,15 @@ app.get('/:key/:count', async (req, res) => {
 
             reject(data);
         });
-        pyprog.stdin.write(JSON.stringify([req.params.key, req.params.count]));
+        pyprog.stdin.write(JSON.stringify(
+            [
+                req.params.key,
+                req.params.count,
+                process.env.CONSUMER,
+                process.env.CONSUMER_SECRET,
+                process.env.ACCESS,
+                process.env.ACCESS_SECRET
+            ]));
         pyprog.stdin.end();
     });
 
