@@ -3,6 +3,6 @@ jsonpointer==2.0
 jsonschema==3.2.0
 matplotlib==3.3.4
 numpy==1.19.5
-systemd-python==230
-textblob==0.14.3
-tweepy==3.8.0
+systemd-python==234
+textblob==0.15.3
+tweepy==3.10.0
