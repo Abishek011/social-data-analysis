@@ -1,51 +1,68 @@
+require('dotenv').config();
+
 const express = require('express')
 const app = express()
+
+const expressws = require('express-ws')(app)
+
+const cors = require('cors');
+app.use(cors);
+
 var firebase = require('firebase')
 
+var bcrypt = require('bcrypt')
+
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+var saltRounds = 13;
+
 var firebaseConfig = {
-    apiKey: "AIzaSyBhTfHYQgB2TXBn3yAnKLxY-Y2ZAIFTvNs",
-    authDomain: "social-data-analysis-8e63f.firebaseapp.com",
-    databaseURL: "https://social-data-analysis-8e63f-default-rtdb.firebaseio.com",
-    projectId: "social-data-analysis-8e63f",
-    storageBucket: "social-data-analysis-8e63f.appspot.com",
-    messagingSenderId: "950353817480",
-    appId: "1:950353817480:web:7caca3ddae34af4a50d43d",
-    measurementId: "G-79S3FP50BJ"
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    databaseURL: process.env.DATABASE_URL,
+    projectId: process.env.PROJECT_ID,
+    storageBucket: process.env.STORAGE_BUCKET,
+    messagingSenderId: process.env.MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
+    measurementId: process.env.MEASUREMENT_ID
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 let database = firebase.database()
-/* 
-firebase.database().ref('users').set({
-    username: { 1: "raj", 2: 'ram' },
-    email: "email",
-    profile_picture: "imageUrl"
-}); */
-
-require('dotenv').config()
 
 const port = process.env.PORT || 3000;
 
-app.get('/:key/:count', async (req, res) => {
+var route = require('./routes/routes')
+
+var middleWare = require("./routes/middleWare/middleWare")
+
+app.get('/user/login', async (req, res) => {
+
+})
+
+app.post('/user/signUp',middleWare.signUp, route.signUp);
+
+app.get('/key/:count', async (req, res) => {
 
     let runPy = new Promise(function (resolve, reject) {
-        
-const { PythonShell } = require('python-shell')
+
+        const { PythonShell } = require('python-shell')
         let pyshell = new PythonShell('main.py');
 
         // sends a message to the Python script via stdin
         pyshell.send(JSON.stringify(
-            [  req.params.key,
-               req.params.count,
-               process.env.CONSUMER,
-               process.env.CONSUMER_SECRET,
-               process.env.ACCESS,
-               process.env.ACCESS_SECRET
+            ["man",
+                5,
+                process.env.CONSUMER,
+                process.env.CONSUMER_SECRET,
+                process.env.ACCESS,
+                process.env.ACCESS_SECRET
             ]));
 
         pyshell.on('message', function (message) {
-            // received a message sent from the Python script (a simple "print" statement)
             console.log(message);
         });
 
@@ -56,36 +73,13 @@ const { PythonShell } = require('python-shell')
             console.log('The exit signal was: ' + signal);
             console.log('finished');
         });
-
-        /* const pychild = require('child_process');
-        const pyprog = pychild.spawn('python3', ['main.py']);
-        pyprog.stdout.on('data', function (data) {
-            console.log("ds", data);
-            resolve(data);
-        });
-
-        pyprog.stderr.on('data', (data) => {
-
-            reject(data);
-        });
-        pyprog.stdin.write(JSON.stringify(
-            [
-                req.params.key,
-                req.params.count,
-                process.env.CONSUMER,
-                process.env.CONSUMER_SECRET,
-                process.env.ACCESS,
-                process.env.ACCESS_SECRET
-            ]));
-        pyprog.stdin.end();
+    })
+});
+app.ws('/', function (ws, req) {
+    ws.on('message', function (msg) {
+        console.log(msg);
     });
+    console.log('socket', req.params);
+});
 
-        runPy.then(function (fromRunpy) {
-            console.log(fromRunpy.toString());
-            res.end(fromRunpy);
-        }).catch(err => {
-            console.log("error",JSON.stringify(err));
-        }); */
-    })});
-
-    app.listen(port, () => console.log(`Application listening on port ${port}`)) 
+app.listen(port, () => console.log(`Application listening on port ${port}`)) 
