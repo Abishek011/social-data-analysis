@@ -28,5 +28,9 @@
     "analysis"
   ],
   "author": "raj",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": "0.10.20",
+    "npm": ">=1.3"
+  }
 }
