@@ -18,7 +18,6 @@ var jwt = require('jsonwebtoken')
 var signUp = async (req, res, next) => {
     console.log("::::",req.body.email);
     var email = req.body.email;
-    var flag = true;
     var check = new Promise(async (resolve, reject) => {
         await firebase.database().ref("users").once('value').then((snapshot) => {
             var keys = snapshot.val();
@@ -26,7 +25,6 @@ var signUp = async (req, res, next) => {
             Object.keys(keys).forEach(k => {
                 console.log(keys[k].email);
                 if (keys[k].email.includes(email)) {
-                    flag = false;
                     reject("User Already Exist");
                 }
             })}

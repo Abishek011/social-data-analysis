@@ -4,9 +4,9 @@ const express = require('express')
 const app = express()
 
 const expressws = require('express-ws')(app)
-
+/* 
 const cors = require('cors');
-app.use(cors);
+app.use(cors); */
 
 var firebase = require('firebase')
 
