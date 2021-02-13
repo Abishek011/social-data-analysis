@@ -35,6 +35,8 @@ let database = firebase.database()
 
 const port = process.env.PORT || 3000;
 
+console.log("reas");
+
 var route = require('./routes/routes')
 
 var middleWare = require("./routes/middleWare/middleWare")
