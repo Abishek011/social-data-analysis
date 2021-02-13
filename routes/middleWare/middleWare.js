@@ -16,7 +16,7 @@ var saltRounds = 13;
 var jwt = require('jsonwebtoken')
 
 var signUp = async (req, res, next) => {
-    console.log("::::",req.body.email);
+    console.log("::::",req);
     var email = req.body.email;
     var check = new Promise(async (resolve, reject) => {
         await firebase.database().ref("users").once('value').then((snapshot) => {

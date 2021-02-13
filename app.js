@@ -41,10 +41,10 @@ var route = require('./routes/routes')
 
 var middleWare = require("./routes/middleWare/middleWare")
 
-app.get('/user/login', async (req, res) => {
+/* app.get('/user/login', async (req, res) => {
 
 })
-
+ */
 app.post('/user/signUp',middleWare.signUp, route.signUp);
 
 app.get('/key/:count', async (req, res) => {
