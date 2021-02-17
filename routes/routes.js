@@ -29,7 +29,9 @@ var signUp = async (req, res,next) => {
         res.status(201)
         var authorization = jwt.sign({
             data: 'foobar'
-        }, 'secret', { expiresIn: '1h' });
+        }, 'secret', { expiresIn: '1d' });/* 
+        await res.set('Access-Control-Allow-Origin', '*');
+        await res.set('Access-Control-Allow-Credentials', 'true'); */
         await res.set('Authorization', authorization);
         res.send({ message: "Sign Up Successful" });
     });

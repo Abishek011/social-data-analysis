@@ -1,6 +1,9 @@
 var firebase = require('firebase')
 
 var signUp = async (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
     console.log("::::",req.body);
     var email = req.body.email;
     var check = new Promise(async (resolve, reject) => {
@@ -21,7 +24,9 @@ var signUp = async (req, res, next) => {
     });
     await check.then(data => {
         next();
-    }).catch(err => {
+    }).catch(async err => {/* 
+        await res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200/');
+        await res.setHeader('Access-Control-Allow-Credentials', 'true'); */
         res.status(409);
         console.log("res");
         res.send({ message: err });
