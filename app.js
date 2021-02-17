@@ -2,11 +2,9 @@ require('dotenv').config();
 
 const express = require('express')
 const app = express()
+/* 
+const expressws = require('express-ws')(app) */
 
-const expressws = require('express-ws')(app)
-
-const cors = require('cors');
-app.use(cors); 
 
 var firebase = require('firebase')
 
@@ -35,19 +33,15 @@ let database = firebase.database()
 
 const port = process.env.PORT || 3000;
 
-console.log("reas");
-
 var route = require('./routes/routes')
 
 var middleWare = require("./routes/middleWare/middleWare")
 
-/* app.get('/user/login', async (req, res) => {
+console.log("hsjkfh");
 
-})
- */
 app.post('/user/signUp',middleWare.signUp, route.signUp);
 
-app.get('/key/:count', async (req, res) => {
+/* app.get('/key/:count', async (req, res) => {
 
     let runPy = new Promise(function (resolve, reject) {
 
@@ -76,12 +70,14 @@ app.get('/key/:count', async (req, res) => {
             console.log('finished');
         });
     })
-});
+}); */
+
+/* 
 app.ws('/', function (ws, req) {
     ws.on('message', function (msg) {
         console.log(msg);
     });
     console.log('socket', req.params);
-});
+}); */
 
 app.listen(port, () => console.log(`Application listening on port ${port}`)) 

@@ -100,7 +100,7 @@ class SentimentAnalysis:
         polarity = polarity / NoOfTerms
 
         # printing out data
-        """ print("How people are reacting on " + searchTerm + " by analyzing " + str(NoOfTerms) + " tweets.")
+        print("How people are reacting on " + searchTerm + " by analyzing " + str(NoOfTerms) + " tweets.")
         print()
         print("General Report: ")
 
@@ -127,7 +127,7 @@ class SentimentAnalysis:
         print(str(negative) + "% people thought it was negative")
         print(str(wnegative) + "% people thought it was weakly negative")
         print(str(snegative) + "% people thought it was strongly negative")
-        print(str(neutral) + "% people thought it was neutral") """
+        print(str(neutral) + "% people thought it was neutral")
 
         """ self.plotPieChart(positive, wpositive, spositive, negative, wnegative, snegative, neutral, searchTerm, NoOfTerms) """
 

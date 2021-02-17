@@ -1,22 +1,7 @@
-const express = require('express')
-const app = express()
-
-const expressws = require('express-ws')(app)
-
 var firebase = require('firebase')
 
-var bcrypt = require('bcrypt')
-
-var bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-var saltRounds = 13;
-
-var jwt = require('jsonwebtoken')
-
 var signUp = async (req, res, next) => {
-    console.log("::::",req);
+    console.log("::::",req.body);
     var email = req.body.email;
     var check = new Promise(async (resolve, reject) => {
         await firebase.database().ref("users").once('value').then((snapshot) => {
