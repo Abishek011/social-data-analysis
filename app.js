@@ -5,6 +5,9 @@ const app = express()
 /* 
 const expressws = require('express-ws')(app) */
 
+const cors = require('cors');
+
+app.use(cors());
 
 var firebase = require('firebase')
 
@@ -37,7 +40,7 @@ var route = require('./routes/routes')
 
 var middleWare = require("./routes/middleWare/middleWare")
 
-console.log("hsjkfh");
+console.log("Entry");
 
 app.post('/user/signUp',middleWare.signUp, route.signUp);
 

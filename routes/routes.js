@@ -19,7 +19,7 @@ var signUp = async (req, res,next) => {
     var email = req.body.email;
     var userName = req.body.userName;
     var password = req.body.password;
-    console.log("ndj");
+    console.log("signUp");
     bcrypt.hash(password, saltRounds, async (err, hash)=> {
         firebase.database().ref('users').push().set({
             email: email,
